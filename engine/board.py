@@ -41,6 +41,25 @@ def generate_pawn_moves(board, row, col,moves):
             moves.append((row, col, row +1, col -1))
         if row <7 and col <7 and board[row +1][col +1].isupper():
             moves.append((row, col, row +1, col +1))
+    return moves
         
+def generate_knight_moves(board, row, col, moves):
+    piece = board[row][col]
+    knight_moves = [ (2, 1),(2, -1),(-2, 1),(-2, -1),(1, 2),(1, -2),(-1, 2),(-1, -2)]
+    is_white = piece.isupper()
+    for dr, dc in knight_moves:
+        new_row = row + dr
+        new_col = col + dc
+        if 0 <= new_row < 8 and 0 <= new_col < 8:
+            target = board[new_row][new_col]
+            if target == ".":
+                moves.append((row, col, new_row, new_col))
 
-        
+            # capture
+            elif is_white and target.islower():
+                moves.append((row, col, new_row, new_col))
+
+            elif not is_white and target.isupper():
+                moves.append((row, col, new_row, new_col))
+
+    return moves
