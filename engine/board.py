@@ -61,5 +61,31 @@ def generate_knight_moves(board, row, col, moves):
 
             elif not is_white and target.isupper():
                 moves.append((row, col, new_row, new_col))
-
     return moves
+
+def generate_king_moves(board, row, col, moves):
+    piece = board[row][col]
+    king_moves = [
+        (1, 0), (-1, 0), (0, 1), (0, -1),
+        (1, 1), (1, -1), (-1, 1), (-1, -1),
+    ]
+    is_white = piece.isupper()
+    for dr, dc in king_moves:
+        new_row = row + dr
+        new_col = col + dc
+        if 0 <= new_row < 8 and 0 <= new_col < 8:
+            target = board[new_row][new_col]
+            if (
+                target == "."
+                or (is_white and target.islower())
+                or (not is_white and target.isupper())
+            ):
+                moves.append((row, col, new_row, new_col))
+    return moves
+
+def generate_bishop_moves(board, row, col, moves):
+    piece = board[row][col]
+    is_white = piece.isupper()
+    directions = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
+    for dr,dc in directions:
+        pass
